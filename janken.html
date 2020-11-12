@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/sample.css">
+  <title>じゃんけん</title>
+</head>
+
+<body>
+  <header>
+    <h1 class="titl">いざ尋常に・・・勝負！！</h1>
+  </header>
+
+  <main>
+    <ul>
+      <li id="gu_btn" class="gu">you</li>
+      <li id="cho_btn" class="ch">you</li>
+      <li id="par_btn" class="pa">you</li>
+    </ul>
+    <div class="main">
+      <div class="main_text">
+        <div id="point">得点：</div>
+        <div id="com_hand">コンピュータの出した手は➡</div>
+        <div class="ans">結果は・・・</div>
+        <div class="judgment" id="judgment"></div>
+        <div class="count">
+          <div id="win">勝った回数：</div>
+          <div id="los">負けた回数：</div>
+          <div id="par">あいこの回数：</div>
+        </div>
+      </div>
+      <div class="random_top">
+        <img id="random" class="random" src="" alt="" />
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="button">
+      <a id="rest" class="new_button">リセット</a>
+    </div>
+    <div class="button_move">
+      <a href="index.html" class="new_button">タイトルへ</a>
+      <a href="rule.html" class="new_button">モード選択へ</a>
+    </div>
+  </footer>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script>
+    $(function () {
+      var win = 0;
+      var los = 0;
+      var par = 0;
+      let point = 0;
+      const result = ["グー", "チョキ", "パー"];
+      var images = ['img/gu.png', 'img/ch.png', 'img/pa.png'];
+      var id = setInterval(random, 1000);
+      $('#gu_btn').on('click', function () {
+
+        let rand = Math.floor(Math.random() * 3);
+
+        $('#com_hand').text('コンピュータの手:' + result[rand]);
+        if (rand == 0) {
+          $('#judgment').text('あいこ');
+          par++;
+          $('#win').text('勝った回数：' + win);
+          $('#los').text('負けた回数：' + los);
+          $('#par').text('あいこの回数：' + par);
+        } else if (rand == 1) {
+          $('#judgment').text('勝ち');
+          win++;
+          point += 100;
+          $('#win').text('勝った回数：' + win);
+          $('#los').text('負けた回数：' + los);
+          $('#par').text('あいこの回数：' + par);
+          $('#point').text('得点：' + point + ' 点');
+        } else {
+          $('#judgment').text('負け');
+          los++;
+          point -= 100;
+          $('#win').text('勝った回数：' + win);
+          $('#los').text('負けた回数：' + los);
+          $('#par').text('あいこの回数：' + par);
+          $('#point').text('得点：' + point + ' 点');
+        }
+      });
+
+      $('#cho_btn').on('click', function () {
+
+        let rand = Math.floor(Math.random() * 3);
+
+        $('#com_hand').text('コンピュータの手:' + result[rand]);
+        if (rand == 0) {
+          $('#judgment').text('負け');
+          los++;
+          point -= 100;
+          $('#win').text('勝った回数：' + win);
+          $('#los').text('負けた回数：' + los);
+          $('#par').text('あいこの回数：' + par);
+          $('#point').text('得点：' + point + ' 点');
+        } else if (rand == 1) {
+          $('#judgment').text('あいこ');
+          par++;
+          $('#win').text('勝った回数：' + win);
+          $('#los').text('負けた回数：' + los);
+          $('#par').text('あいこの回数：' + par);
+        } else {
+          $('#judgment').text('勝ち');
+          win++;
+          point += 100;
+          $('#win').text('勝った回数：' + win);
+          $('#los').text('負けた回数：' + los);
+          $('#par').text('あいこの回数：' + par);
+          $('#point').text('得点：' + point + ' 点');
+        }
+      });
+
+      $('#par_btn').on('click', function () {
+
+        let rand = Math.floor(Math.random() * 3);
+
+        $('#com_hand').text('コンピュータの手:' + result[rand]);
+        if (rand == 0) {
+          $('#judgment').text('勝ち');
+          win++;
+          point += 100;
+          $('#win').text('勝った回数：' + win);
+          $('#los').text('負けた回数：' + los);
+          $('#par').text('あいこの回数：' + par);
+          $('#point').text('得点：' + point + ' 点');
+        } else if (rand == 1) {
+          $('#judgment').text('負け');
+          los++;
+          point -= 100;
+          $('#win').text('勝った回数：' + win);
+          $('#los').text('負けた回数：' + los);
+          $('#par').text('あいこの回数：' + par);
+          $('#point').text('得点：' + point + ' 点');
+        } else {
+          $('#judgment').text('あいこ');
+          par++;
+          $('#win').text('勝った回数：' + win);
+          $('#los').text('負けた回数：' + los);
+          $('#par').text('あいこの回数：' + par);
+        }
+      });
+
+      $('#rest').on('click', function () {
+        $('#com_hand').text('コンピュータの手は➡');
+        $('#judgment').text('');
+        win = 0;
+        par = 0;
+        los = 0;
+        point = 0;
+        $('#win').text('勝った回数：' + win);
+        $('#los').text('負けた回数：' + los);
+        $('#par').text('あいこの回数：' + par);
+        $('#point').text('得点：' + point + ' 点');
+      });
+      $('#win').text('勝った回数：' + win);
+      $('#los').text('負けた回数：' + los);
+      $('#par').text('あいこの回数：' + par);
+      $('#point').text('得点：' + point + ' 点');
+
+      var random = function () {
+        var randImg = images[Math.floor(Math.random() * 3)];
+        $('#random').attr('src', randImg);
+      }
+    });
+  </script>
+
+</body>
+
+</html>

@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/press.css">
+    <title>じゃんけん</title>
+</head>
+
+<body>
+    <header>
+        <p class="title">早押しゲーム</p>
+        <div class="title_under">
+            <h1 id="check" class="check">スタート5秒前</h1>
+            <h1 id="tim" class="tim">制限時間 30秒</h1>
+        </div>
+    </header>
+
+    <main>
+        <div id="rule_text" class="rule">
+            <p class="rule_main">ルール説明</p>
+            <ul class="rule_sub">
+                <li>コンピュータがランダムにじゃんけんの手を出すよ</li>
+                <li>コンピュータに勝てるように手を選ぼう</li>
+                <li>勝ち・・・ + 100点</li>
+                <li>負け・・・ - 200点</li>
+                <li>あいこ・・・ - 50点</li>
+                <li>制限時間は30秒！</li>
+                <li>時間内に高得点を目指そう！！</li>
+                <li>3000点以上取ると・・・！？</li>
+            </ul>
+        </div>
+        <div id="game_main" class="game_main">
+            <section class="my_main">
+                <div class="enemy">
+                    <div id="enemytext" class="enemytext"></div>
+                    <img class="enemypic" id="enemypic" src="" alt="">
+                </div>
+                <div id="my_select" class="my_select">
+                    <div class="mypic" id="gu"></div>
+                    <div class="mypic" id="ch"></div>
+                    <div class="mypic" id="pa"></div>
+                </div>
+            </section>
+            <div class="rast" id="rast"></div>
+            <div class="is-fadeIn" id="is-fadeIn"></div>
+            <video class="video" id="video" src="mp4/クリア.mp4" height="0px" width="0px"></video>
+        </div>
+    </main>
+
+    <footer>
+        <div class="button">
+            <a id="sturat" href="#" class="new_button">ゲームスタート</a>
+        </div>
+        <div class="button_move">
+            <a href="index.html" class="new_button">タイトルへ</a>
+            <a href="rule.html" class="new_button">モード選択へ</a>
+        </div>
+        <audio id="sound-win" preload="auto">
+            <source src="mp3/かち.mp3" type="audio/mp3">
+        </audio>
+        <audio id="sound-los" preload="auto">
+            <source src="mp3/まけ.mp3" type="audio/mp3">
+        </audio>
+        <audio id="sound-par" preload="auto">
+            <source src="mp3/あいこ.mp3" type="audio/mp3">
+        </audio>
+        <audio id="sound" preload="auto">
+            <source src="mp3/優勝.mp3" type="audio/mp3">
+        </audio>
+    </footer>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script>
+        var count = 5;
+        var timer = 30;
+        var num = 0;
+        var point = 0;
+        let kakunin = 0;
+        const pics_src = new Array("img/gu.png", "img/ch.png", "img/pa.png");
+        $(function () {
+            $('#sturat').on('click', function () {
+                $("#sturat").remove();
+                countdown();
+            });
+        });
+
+        var countdown = function () {
+            $('#check').text(count--);
+            var id = setTimeout(countdown, 1000);
+            if (count < 0) {
+                $('#check').text("スタート！！");
+                $('#rule_text').text("");
+                if (count < -1) {
+                    clearTimeout(id);
+                    $('#check').text("得点  0点");
+                    myplacement();
+                    var re_id = setInterval(tim_countdown, 1000);
+                }
+            }
+        }
+
+        var tim_countdown = function () {
+            $('#tim').text("制限時間  " + timer-- + "秒");
+            if (timer < 0) {
+                $('#tim').text("タイムアップ！！");
+                $('#rast').text("スコア  " + point + "点");
+                $('section').remove();
+                if (point > 2900) {
+                    $('#sound').get(0).play();
+                    $('#rast').text("");
+                    $('#tim').text("超ハイスコア！！！");
+                    var video = document.getElementById('video');
+                    $('#video').width(700);
+                    $('#video').height(500);
+                    video = $('#video').get(0);
+                    video.play();
+                    setTimeout(rast, 10000);
+                }
+                clearInterval(re_id);
+            }
+        }
+
+        var rast = function () {
+            video.pause();
+            $('#video').remove();
+            $('#sound').get(0).pause();
+            $('#is-fadeIn').text("Congratulations");
+        }
+
+        var tuch = function () {
+            $("#my_gu").click(function () {
+                if (num == 0) {
+                    point -= 50;
+                    $('#check').text("得点  " + point + "点");
+                    $('#sound-par').get(0).play();
+                } else if (num == 1) {
+                    point += 100;
+                    $('#check').text("得点  " + point + "点");
+                    $('#sound-win').get(0).play();
+                } else {
+                    point -= 200;
+                    $('#check').text("得点  " + point + "点");
+                    $('#sound-los').get(0).play();
+                }
+                myplacement();
+            });
+            $('#my_ch').click(function () {
+                if (num == 0) {
+                    point -= 200;
+                    $('#check').text("得点  " + point + "点");
+                    $('#sound-los').get(0).play();
+                } else if (num == 1) {
+                    point -= 50;
+                    $('#check').text("得点  " + point + "点");
+                    $('#sound-par').get(0).play();
+                } else {
+                    point += 100;
+                    $('#check').text("得点  " + point + "点");
+                    $('#sound-win').get(0).play();
+                }
+                myplacement();
+            });
+            $('#my_pa').click(function () {
+                if (num == 0) {
+                    point += 100;
+                    $('#check').text("得点  " + point + "点");
+                    $('#sound-win').get(0).play();
+                } else if (num == 1) {
+                    point -= 200;
+                    $('#check').text("得点  " + point + "点");
+                    $('#sound-los').get(0).play();
+                } else {
+                    point -= 50;
+                    $('#check').text("得点  " + point + "点");
+                    $('#sound-par').get(0).play();
+                }
+                myplacement();
+            });
+        }
+
+        var myplacement = function () {
+            var $elementReference = document.getElementById("my_select");
+            $elementReference.style.backgroundImage = "url(img/my背景.png)";
+            const result = ["gu", "ch", "pa"];
+            var image = [];
+            var random_height = [];
+            $('#enemytext').text("相手の手");
+            num = Math.floor(Math.random() * 3);
+            document.getElementById("enemypic").src = pics_src[num];
+            for (var s = 0; s < 3; s++) {
+                random_height[s] = Math.floor(Math.random() * (560 - 250) + 250);
+                document.getElementById(result[s]).innerHTML = "";
+                image[s] = document.createElement("img");
+                image[s].src = "img/" + result[s] + ".png";
+                image[s].height = 120;
+                image[s].width = 95;
+                image[s].id = "my_" + result[s];
+                image[s].style.position = "absolute";
+                image[s].style.top = random_height[s];
+                image[s].style.left = Math.random() * (document.getElementById(result[s]).clientWidth - 100) + "px";
+                document.getElementById(result[s]).appendChild(image[s]);
+            }
+            tuch();
+        }
+
+        $('#rrest').on('click', function () {
+            point = 0;
+            count = 5;
+            timer = 30;
+            $('#tim').text("制限時間  " + timer + "秒");
+            $('#rast').text("");
+            countdown();
+        });
+
+    </script>
+</body>
+
+</html>

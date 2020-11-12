@@ -1,0 +1,138 @@
+body{
+    margin:0;
+    padding:0;
+    text-align:left;
+    font-size: 32px;
+}
+header{
+    background-color: #fff;
+    border-bottom: 1px solid #ccc;
+    text-align: center;
+    background: url(../img/じゃんけんタイトル.png);
+    background-size: cover;
+    background-position: center;
+}
+.titl{
+    font-family: "HGP行書体";
+}
+
+main{
+    width: 100%;
+    border-bottom:1px solid #ccc;
+}
+.main{
+    display: flex;
+    justify-content: space-between;
+    
+}
+.main_text{
+    width: 60%;
+}
+
+footer{
+    background-color: #fff;
+    border-bottom:1px solid #ccc;
+    text-align: center;
+}
+p{
+    font-size:200%;
+    text-align: center;
+    border-bottom:1px solid #fff;
+    height:200px;
+}
+ul{
+    padding: 0;
+    border-top: 1px solid #000000;
+    display:table;  /* 定義 */
+    table-layout: fixed;
+    width:100%;
+}
+li{
+    text-align: center;
+    list-style-type:none;
+    border: 1px solid #666;
+    background-color: #FFF;
+    display:table-cell;  /* 定義 */
+    cursor: pointer;
+}
+li:hover{
+    color:red;
+    opacity: 0.4;
+}
+
+.ans{
+    color: rgb(0, 195, 255);
+}
+
+.judgment{
+    color: red; 
+}
+
+.random_top{
+        width: 40%;
+    text-align: left;
+}
+
+.gu{
+    background: url(../img/gu.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    text-align: left;
+    height: 100%;
+}
+
+.ch{
+    background: url(../img/ch.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    text-align: left;
+    height: 100%;
+}
+
+.pa{
+    background: url(../img/pa.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    text-align: left;
+    height: 100%;
+}
+
+.button{
+    display: flex;
+	justify-content: space-around;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.button_move{
+    display: flex;
+	justify-content: space-around;
+	align-items: center;
+}
+
+.new_button {
+	font-size: 21px;
+	display: inline-block;
+	padding: 10px 60px;
+	text-decoration: none;
+	border-radius: 4px;
+	color: #221f33;
+	background-image: linear-gradient(#eb88d5 0%, #eb88d5 100%);
+	box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.29);
+    border-bottom: solid 3px #635864;
+    opacity: 0.7;
+}
+
+.new_button:hover{
+    opacity: 0.9;
+}
+
+.new_button:active {
+		-webkit-transform: translateY(4px);
+		transform: translateY(4px);
+		box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.2);
+		border-bottom: none;
+}
