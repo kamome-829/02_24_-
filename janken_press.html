@@ -57,6 +57,9 @@
             <a href="index.html" class="new_button">タイトルへ</a>
             <a href="rule.html" class="new_button">モード選択へ</a>
         </div>
+        <div class="ranking">
+
+        </div>
         <audio id="sound-win" preload="auto">
             <source src="mp3/かち.mp3" type="audio/mp3">
         </audio>
@@ -78,6 +81,7 @@
         var point = 0;
         let kakunin = 0;
         const pics_src = new Array("img/gu.png", "img/ch.png", "img/pa.png");
+        var arrChangeCnt = new Array();
         $(function () {
             $('#sturat').on('click', function () {
                 $("#sturat").remove();
@@ -95,7 +99,7 @@
                     clearTimeout(id);
                     $('#check').text("得点  0点");
                     myplacement();
-                    var re_id = setInterval(tim_countdown, 1000);
+                    arrChangeCnt.push(boxAime = setInterval(tim_countdown, 1000));
                 }
             }
         }
@@ -103,9 +107,11 @@
         var tim_countdown = function () {
             $('#tim').text("制限時間  " + timer-- + "秒");
             if (timer < 0) {
+                flag = 0;
                 $('#tim').text("タイムアップ！！");
                 $('#rast').text("スコア  " + point + "点");
                 $('section').remove();
+                $('.button').append('<a id="rrest" href="janken_press.html" class="new_button">もう一回</a>');
                 if (point > 2900) {
                     $('#sound').get(0).play();
                     $('#rast').text("");
@@ -117,7 +123,9 @@
                     video.play();
                     setTimeout(rast, 10000);
                 }
-                clearInterval(re_id);
+                if (arrChangeCnt.length > 0) {
+                    clearInterval(arrChangeCnt.shift());
+                }
             }
         }
 
@@ -204,13 +212,14 @@
             tuch();
         }
 
-        $('#rrest').on('click', function () {
+        $('#rrest').click(function () {
             point = 0;
             count = 5;
             timer = 30;
             $('#tim').text("制限時間  " + timer + "秒");
             $('#rast').text("");
             countdown();
+            $('section').append();
         });
 
     </script>
